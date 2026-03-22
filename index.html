@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kejutan Buat Kamu! ✨</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Dancing+Script:wght@700&family=Varela+Round&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --pink-soft: #FFDEE9;
+            --pink-bright: #FB6F92;
+            --white: #FFFFFF;
+            --text-color: #5F5F5F;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: linear-gradient(135deg, #FFDEE9 0%, #B5FFFC 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        /* Animasi Background Hati & Bintang */
+        .bg-animate {
+            position: absolute; width: 100%; height: 100%;
+            top: 0; left: 0; z-index: 1; pointer-events: none;
+        }
+
+        .symbol {
+            position: absolute; color: rgba(251, 111, 146, 0.4);
+            animation: float 15s linear infinite; bottom: -50px;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.8; }
+            100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Container Utama */
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 30px;
+            width: 90%;
+            max-width: 380px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            border: 3px solid var(--white);
+            z-index: 10;
+            animation: fadeIn 1s ease-out;
+            position: relative; /* Penting untuk penempatan tombol IG */
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+
+        /* Foto dengan Efek Bounce */
+        .foto-wrap {
+            width: 150px; height: 150px;
+            margin: 0 auto 20px;
+            border-radius: 20px;
+            border: 6px solid var(--white);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            animation: bounce 2s infinite alternate;
+        }
+
+        @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-10px); } }
+
+        .foto-wrap img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Teks */
+        h1 { font-family: 'Dancing Script', cursive; color: var(--pink-bright); font-size: 2.2rem; margin-bottom: 5px; }
+        .intro { font-size: 0.9rem; color: #888; margin-bottom: 20px; font-family: 'Varela Round', sans-serif; }
+        
+        input[type="text"] {
+            width: 100%; padding: 12px; border-radius: 15px;
+            border: 2px solid #FFDEE9; text-align: center;
+            outline: none; margin-bottom: 20px; font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        input[type="text"]:focus { border-color: var(--pink-bright); }
+
+        .btn {
+            background: var(--pink-bright); color: white;
+            border: none; padding: 12px 30px; border-radius: 50px;
+            font-weight: 600; cursor: pointer; width: 100%;
+            transition: 0.3s; box-shadow: 0 5px 15px rgba(251, 111, 146, 0.4);
+            display: inline-block; /* Agar padding bekerja dengan baik */
+            text-decoration: none; /* Menghapus garis bawah jika tombolnya link */
+        }
+
+        .btn:hover { transform: scale(1.05); background: #e0567a; }
+
+        /* Halaman 2 */
+        #page2 { display: none; }
+        
+        /* Gaya Khusus untuk Efek Mengetik */
+        .message-container {
+            font-size: 1rem; line-height: 1.6; color: var(--text-color);
+            margin: 20px 0; min-height: 100px; /* Jaga agar tinggi kotak tidak berubah-ubah */
+            text-align: left; /* Teks rata kiri agar efek ngetik lebih natural */
+            font-family: 'Varela Round', sans-serif;
+            display: inline-block; /* Agar teks berada di tengah secara horizontal */
+        }
+
+        .cursor {
+            display: inline-block; width: 3px; height: 1.2rem;
+            background-color: var(--pink-bright); margin-left: 2px;
+            animation: blink 0.7s infinite; vertical-align: middle;
+        }
+
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        .nama-dia { font-family: 'Dancing Script', cursive; font-size: 2.2rem; color: var(--pink-bright); display: block; margin-bottom: 5px; }
+
+        /* Instagram Floating */
+        .ig-btn {
+            position: fixed; bottom: 20px; right: 20px;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2397, #bc1888);
+            color: white; padding: 8px 15px; border-radius: 50px;
+            text-decoration: none; font-size: 0.7rem; font-weight: 600;
+            z-index: 100; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+
+        .ig-btn:hover { transform: scale(1.1); }
+    </style>
+</head>
+<body>
+
+    <audio id="lagu" loop>
+        <source src="yowisben.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="bg-animate" id="symbols"></div>
+
+    <div class="card">
+        <div id="page1">
+            <div class="foto-wrap">
+                <img src="anime.gif" alt="Cute Pic">
+            </div>
+            <h1>Hai Cantik...</h1>
+            <p class="intro">Ada pesan kecil buat kamu,</p>
+            <input type="text" id="inputNama" placeholder="Ketik nama kamu dulu ya ✨" autocomplete="off">
+            <button class="btn" onclick="nextPage()">Lanjut ✨</button>
+        </div>
+
+        <div id="page2">
+            <h1>Spesial Untuk,</h1>
+            <span id="displayNama" class="nama-dia"></span>
+            <div class="message-container">
+                <span id="typing-text"></span><span class="cursor"></span>
+            </div>
+            <button class="btn" id="btnMakasih" style="display:none;" onclick="sendWA()">Makasih ❤️</button>
+        </div>
+    </div>
+
+    <a href="https://instagram.com/wagsunari" target="_blank" class="ig-btn">INSTAGRAM</a>
+
+    <script>
+        // === 1. Munculkan Hati & Bintang melayang ===
+        const symbolContainer = document.getElementById('symbols');
+        const types = ['♥', '★', '🌸', '✨', '☁'];
+        for (let i = 0; i < 25; i++) {
+            let s = document.createElement('span');
+            s.className = 'symbol';
+            s.innerHTML = types[Math.floor(Math.random() * types.length)];
+            s.style.left = Math.random() * 100 + 'vw';
+            s.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            s.style.animationDelay = Math.random() * 10 + 's';
+            s.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            symbolContainer.appendChild(s);
+        }
+
+        // === 2. Fungsi Pindah Halaman & Putar Musik ===
+        function nextPage() {
+            const nama = document.getElementById('inputNama').value;
+            const lagu = document.getElementById('lagu');
+
+            if (!nama) {
+                alert("Namanya jangan kosong ya cantik.. 😊");
+                return;
+            }
+
+            // Putar musik (catch untuk browser yang blokir autoplay)
+            lagu.play().catch(e => console.log("Musik gagal putar otomatis. Browser memblokir. Musik akan berputar setelah interaksi berikutnya."));
+
+            document.getElementById('displayNama').innerText = nama;
+            document.getElementById('page1').style.display = 'none';
+            document.getElementById('page2').style.display = 'block';
+
+            // Mulai efek mengetik setelah halaman 2 muncul
+            startTyping();
+        }
+
+        // === 3. Logika Efek Mengetik (Typing Text) ===
+        const textToType = "Dunia itu luas, tapi bagiku, senyummu adalah bagian favoritnya. Terima kasih sudah menjadi sosok yang hebat. Tetaplah bersinar dengan caramu sendiri, ya! ✨❤️";
+        const typingSpeed = 60; // Kecepatan ngetik (milidetik per huruf). Semakin kecil semakin cepat.
+        let charIndex = 0;
+
+        function startTyping() {
+            const typingElement = document.getElementById('typing-text');
+            const btnMakasih = document.getElementById('btnMakasih');
+            const cursor = document.querySelector('.cursor');
+
+            if (charIndex < textToType.length) {
+                typingElement.innerHTML += textToType.charAt(charIndex);
+                charIndex++;
+                setTimeout(startTyping, typingSpeed);
+            } else {
+                // Selesai ngetik, sembunyikan kursor dan munculkan tombol Makasih
+                cursor.style.display = 'none';
+                btnMakasih.style.display = 'inline-block';
+                
+                // Tambahkan animasi fadeIn kecil buat tombol Makasih
+                btnMakasih.style.animation = 'fadeIn 0.5s ease-out';
+            }
+        }
+
+        // === 4. Fungsi Kirim WA ===
+        function sendWA() {
+            const noWA = "6289526345428"; // GANTI DENGAN NOMOR WA KAMU (Wajib pakai kode negara '62')
+            const text = "Makasih ya sayang ini (Khusus buat kamu sal)😊❤️✨";
+            window.open(`https://wa.me/${noWA}?text=${encodeURIComponent(text)}`, '_blank');
+        }
+    </script>
+</body>
+</html>
